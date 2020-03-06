@@ -83,14 +83,18 @@ void loop() {
     disconnectConnection();
     if (sleepRemainder < 0){
         Serial.println("Good Night");
-         System.sleep(D5,RISING, sendInterval);
+        NormalSleep();
     }
     // debugMessage("Sleep from Pin Wake: " + (String)sleepRemainder);
     System.sleep(D5,RISING, sleepRemainder);
     }
      /********  Good night!  Sleep!************/
   else{
-    if (!Particle.connected()){
+    NormalSleep();
+  }
+}
+void NormalSleep(){
+ if (!Particle.connected()){
       Serial.println("Reconnecting.........");
       initConnection();
     }
@@ -105,9 +109,8 @@ void loop() {
     disconnectConnection();
     delay(200);
     System.sleep(D5,RISING,sendInterval);
-   }
+   
 }
-
 void sendHttpRequest()
 {
     Serial.println();
